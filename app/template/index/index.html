@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="{{url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/floating-labels.css')}}" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/logos/logo_fav.png')}}">
+
+
+</head>
+
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <form onsubmit="loginUser()" class="form-signin">
+
+    <div class="text-center mb-4">
+      <img src="{{url_for('static', filename='img/logos/logo_fav.png')}}" alt="" width='90' height='90'>
+      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    </div>
+
+    <div class="form-label-group">
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+      <label for="inputEmail">Email</label>
+    </div>
+
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+      <label for="inputPassword">Senha
+      </label>
+    </div>
+
+    <div>
+      <button class="btn btn-primary btn-block w-100" type="submit">Login</button>
+    </div>
+
+    <div class="fixed-bottom py-2">
+      <div class="container">
+        <div class="text-center">
+          <p class="text-muted m-0">
+            Copyright © WeslenPy - All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+  <script src="{{url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/utils/api.js')}}"></script>
+  <script src="{{url_for('static', filename='js/adm/actions/index.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% block head %}
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/logos/logo_fav.png')}}">
+    <title>
+        Dashboard - {% block title %}{% endblock %}
+    </title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
+    <link href="{{url_for('static', filename='plugins/external/css/nucleo-icons.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static', filename='plugins/external/css/nucleo-svg.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='plugins/jquery/jquery-mask.js')}}"></script>
+    
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <link id="pagestyle" href="{{url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link id="pagestyle" href="{{url_for('static', filename='plugins/external/css/argon-dashboard.css')}}" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.css">
+
+    <script src="{{url_for('static', filename='js/adm/utils/api-flat.js')}}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    {% endblock %}
+
+
+</head>
+
+<body class="g-sidenav-show bg-gradient-dark">
+    <div class="min-height-300  bg-gradient-dark position-absolute w-100"></div>
+    <aside
+        class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl fixed-start hidden-flow"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0">
+                <img src="{{url_for('static', filename='img/logos/logo_fav.png')}}" class="navbar-brand-img h-100"
+                    alt="main_logo">
+                <span class="ms-1 font-weight-bold">GameWzap</span>
+            </a>
+        </div>
+        <div class="w-auto mb-5" id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('dashboard.dash_home')}}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('dashboard.dash_user')}}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-user-run text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Usuários</span>
+                    </a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('dashboard.dash_config')}}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-settings text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Configuração</span>
+                    </a>
+                </li>
+           
+            </ul>
+        </div>
+    </aside>
+    <main class="main-content position-relative border-radius-lg ">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
+            data-scroll="false">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Home</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">{% block page %}{% endblock %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </nav>
+        {% block body %}
+        {% endblock %}
+
+    </main>
+
+
+    {% block scripts %}
+
+    <script src="{{url_for('static', filename='js/utils/side.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/external/js/core/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/external/js/plugins/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/external/js/plugins/smooth-scrollbar.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/external/js/plugins/chartjs.min.js')}}"></script>
+
+
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+
+
+    <script>
+        $('.money').mask("000.000.000.000.000.00", {reverse: true});
+        $('.mask-cpf').mask("000.000.000-00", {reverse: true});
+    
+    </script>
+
+    {% endblock %}
+
+</body>
+
+</html>

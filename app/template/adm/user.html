@@ -1,0 +1,106 @@
+{% extends "/adm/layout.html" %}
+{% block title %}Usuários{% endblock %}
+
+{% block body %}
+
+<script src="{{url_for('static', filename='js/adm/actions/user.js')}}"></script>
+
+{% include 'modals/user/edit.html' %}
+{% include 'modals/user/balance.html' %}
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 mb-3">
+                    <div class="row">
+                        <div class="col-2">
+                            <h6 class="mt-1">Tabela de usuários</h6>
+                        </div>
+                                {% include 'modals/filters/pattern.html' %}
+                      
+                    </div>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-sm font-weight-bolder">Id</th>
+                                    <th class="text-center text-sm font-weight-bolder">Nome</th>
+                                    <th class="text-center text-sm font-weight-bolder">Saldo</th>
+                                    <th class="text-center text-sm font-weight-bolder">Data</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableUsers">
+                                {% for row in rows.items %}
+                                <tr class="text-center text-sm" id="{{row.id}}">
+
+                                    <th scope="row">{{ row.id }}</th>
+                                    <td>{{ row.username }}</td>
+                                    <td>{{ row.balance }}</td>
+                                    <td>{{ row.created_at }}</td>
+
+                                    <td>
+                                        <div class="row m-0 justify-content-center">
+                                            <div class="col-2">
+                                                <div href="javascript:;" class="cursor-pointer pb-1"
+                                                    >
+                                                    <img src="{{url_for('static',filename='img/icons/trash.svg')}}"
+                                                        alt="" onclick="deleteRow('{{row.id}}')">
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div href="javascript:;" class="cursor-pointer pb-1">
+                                                    <img src="{{url_for('static',filename='img/icons/edit.svg')}}"
+                                                        onclick="editRow({{row|dump_user}})"
+                                                        >
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div href="javascript:;" class="cursor-pointer pb-1">
+                                                    <img src="{{url_for('static',filename='img/icons/dollar.svg')}}"
+                                                        onclick="editBalance('{{row.id}}')" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <nav class="mx-4 mt-2 mb-1" id="currentPagination">
+
+                            <ul class="pagination justify-content-end mb-0">
+                                {% for page in rows.iter_pages() %}
+                                    {% if page %}
+                                        <li class="page-item {% if page == rows.page %} active {% endif %}">
+                                            <a class="page-link" href="{{ url_for('dashboard.dash_users',page=page)}}">{{page}}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                                href="{{ url_for('dashboard.dash_users',page=rows.next_num)}}">...</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+$("#balanceModify").mask("#.##0.00", { reverse: true });
+</script>
+
+{% endblock %}

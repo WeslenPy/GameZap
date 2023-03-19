@@ -1,0 +1,259 @@
+{% extends "/adm/layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Vendas do dia</p>
+                                <h5 class="font-weight-bolder">
+                                    R$ {% if sales_day[0] %}{{sales_day[0] | numberFormat}}{% else %}0,00{%endif%}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div
+                                class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Novos usuários</p>
+                                <h5 class="font-weight-bolder">
+                                    {{new_users_day}}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div
+                                class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="col-xl-3 col-sm-7 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Usuários cadastrados</p>
+                                <h5 class="font-weight-bolder">
+                                    {{users_active}}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div
+                                class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Recargas hoje</p>
+                                <h5 class="font-weight-bolder">
+                                    R$ {% if rechargers_day[0] %}{{rechargers_day[0]| numberFormat}}{% else %}0,00{%endif%}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div
+                                class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 d-none">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total de vendas</p>
+                                <h5 class="font-weight-bolder">
+                                    R$ {% if all_sales[0] %}{{all_sales[0]| numberFormat}}{% else %}0,00{%endif%}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div
+                                class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg mb-lg-0 mb-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">Grafico de vendas</h6>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg mb-lg-0 mb-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">Usuários recentes</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-sm font-weight-bolder">Id</th>
+                                    <th class="text-center text-sm font-weight-bolder">Nome</th> 
+                                    <th class="text-center text-sm font-weight-bolder">Email</th>
+                                    <th class="text-center text-sm font-weight-bolder">Saldo</th>   
+                                    <th class="text-center text-sm font-weight-bolder">Status</th>
+                                    <th class="text-center text-sm font-weight-bolder">Data</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                {% for row in users_recent %}
+                                    <tr class="text-center text-sm" id="{{row.id}}"> 
+
+                                        <th scope="row">{{ row.id }}</th>
+                                        <td>{{ row.first_name }}</td>
+                                        <td>{{ row.email }}</td>
+                                        <td>{{ row.balance }}</td>
+                                        <td>{% if row.active %} 
+                                            <img src="{{url_for('static',filename='img/icons/check-circle.svg')}}" alt="">
+                                            {% else %} 
+                                            <img src="{{url_for('static',filename='img/icons/x-circle.svg')}}" alt="">
+                                            {% endif %}
+                                            </td>
+                                        <td>{{ row.created_at }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="row mt-4">
+        <div class="col-lg mb-lg-0 mb-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">Recargas recentes</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-sm font-weight-bolder">Id</th>
+                                    <th class="text-center text-sm font-weight-bolder">Cliente</th>
+                                    <th class="text-center text-sm font-weight-bolder">Valor</th>
+                                    <th class="text-center text-sm font-weight-bolder">TXID</th>   
+                                    <th class="text-center text-sm font-weight-bolder">Data</th>
+                                    <th class="text-center text-sm font-weight-bolder">Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in rechargers_recent %}
+                                <tr class="text-center text-sm" id="{{row.id}}"> 
+                                    <th scope="row">{{ row.id }}</th>
+                                    <td>{{ row.user_ship.first_name }}</td>
+                                    <td>{{ row.value }}</td>
+                                    <td>{{ row.txid }}</td>
+                                    <td>{{ row.created_at }}</td>
+                                    <td>{{row.status}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-lg mb-lg-0 mb-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">Trend Top - Em Dev</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-sm font-weight-bolder">Id</th>
+                                    <th class="text-center text-sm font-weight-bolder">Serviço</th>
+                                    <th class="text-center text-sm font-weight-bolder">Total</th>
+                                    <th class="text-center text-sm font-weight-bolder">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('static', filename='plugins/external/js/grafics.js')}}"></script>
+<script>
+    showGrafics({{data_sales|tojson|safe}})
+</script>
+
+
+
+{% endblock %}
