@@ -7,7 +7,7 @@ import sys
 @decorators.isAuthWebhook
 def webhook_wzap():
 
-    print(request.get_json(force=True,silent=True),file=sys.stderr)
+    print(request.get_json(force=True,silent=True),file=sys.stdout)
     
     return jsonify({"status":200}),200
 
