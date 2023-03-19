@@ -219,7 +219,7 @@ class API{
             }
 
             localStorage.setItem(this.KEY,json.access_token)
-            return Swal.fire(json.message).then(()=>{window.location="/dashboard/home"})
+            return Swal.fire(json.message).then(()=>{window.location="/admin/dashboard/home"})
     
         } catch (e) {
             return this.messageError()

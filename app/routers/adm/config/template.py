@@ -6,7 +6,7 @@ from app.database.models import *
 @decorators.renderTemplate
 def dash_config():
 
-    context = dict(template_name_or_list="adm/home.html",
+    context = dict(template_name_or_list="adm/config.html",
                 )
 
     return context

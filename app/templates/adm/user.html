@@ -6,8 +6,6 @@
 <script src="{{url_for('static', filename='js/adm/actions/user.js')}}"></script>
 
 {% include 'modals/user/edit.html' %}
-{% include 'modals/user/balance.html' %}
-
 
 <div class="container-fluid py-4">
     <div class="row">
@@ -15,8 +13,8 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 mb-3">
                     <div class="row">
-                        <div class="col-2">
-                            <h6 class="mt-1">Tabela de usuários</h6>
+                        <div class="col-4">
+                            <h6 class="mt-1"> <i class="ni ni-user-run text-primary text-sm opacity-10 mx-2"></i>Tabela de usuários</h6>
                         </div>
                                 {% include 'modals/filters/pattern.html' %}
                       
@@ -57,12 +55,6 @@
                                                     <img src="{{url_for('static',filename='img/icons/edit.svg')}}"
                                                         onclick="editRow({{row|dump_user}})"
                                                         >
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div href="javascript:;" class="cursor-pointer pb-1">
-                                                    <img src="{{url_for('static',filename='img/icons/dollar.svg')}}"
-                                                        onclick="editBalance('{{row.id}}')" alt="">
                                                 </div>
                                             </div>
                                         </div>
