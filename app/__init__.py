@@ -15,6 +15,7 @@ jwt = JWTManager(app)
 
 token_s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
+TOKEN =  app.config["TOKEN"]
 PER_PAGE=15
 
 from .database import *
@@ -25,5 +26,6 @@ from .blueprints import *
 
 app.register_blueprint(blueprint=api_admin_v1)
 app.register_blueprint(blueprint=dash_admin)
+app.register_blueprint(blueprint=webhook)
 
 

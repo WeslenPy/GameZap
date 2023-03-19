@@ -1,6 +1,8 @@
 from flask_jwt_extended import verify_jwt_in_request,get_jwt_identity
-from flask import jsonify
+from flask import jsonify,request,abort
 from functools import wraps
+from app import TOKEN
+
 
 def isAuth(required:bool=False,
             location:str='json'):
@@ -21,3 +23,15 @@ def isAuth(required:bool=False,
         
     return returnDecorator  
 
+
+def isAuthWebhook(func):
+    @wraps(func)
+    def wrapper(*args,**kwargs):
+        token = request.args.get("token",None)
+        if token and token == TOKEN:
+            return func(*args,**kwargs)
+
+        return abort(404)
+
+    return wrapper
+        
