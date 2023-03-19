@@ -255,4 +255,4 @@ class API{
 }
 
 
-new API("in").checkToken()
+// new API("in").checkToken()

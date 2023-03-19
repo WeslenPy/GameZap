@@ -1,13 +1,12 @@
-let api = API('auth')
-
-
+let api = new API('auth');
 
 
 
 function authUser(){
+    event.preventDefault()
     email = document.getElementById('inputEmail').value
     password = document.getElementById('inputPassword').value
 
-    api.lo
+    api.auth(email,password)
 
 }

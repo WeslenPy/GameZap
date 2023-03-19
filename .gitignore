@@ -10,6 +10,8 @@ __pycache__/
 *.sql
 *.pyc
 
+migrations/
+
 # Distribution / packaging
 .Python
 build/
