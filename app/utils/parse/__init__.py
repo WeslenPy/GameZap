@@ -1,0 +1,1 @@
+from .receive import load_data

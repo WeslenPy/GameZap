@@ -16,7 +16,10 @@ jwt = JWTManager(app)
 token_s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 TOKEN =  app.config["TOKEN"]
+BOT_NAME =  app.config["BOT_NAME"]
+
 PER_PAGE=15
+
 
 from .database import *
 from .routers import *

@@ -32,3 +32,4 @@ TESTING = False
 
 
 TOKEN = environ.get("TOKEN")
+BOT_NAME = environ.get("BOT_NAME")

@@ -6,11 +6,11 @@ class User(db.Model):
     id  = db.Column(db.Integer, primary_key=True,autoincrement=True)
 
     chat_id = db.Column(db.String(200),unique=True,nullable=False)
-    device = db.Column(db.String(200),nullable=False)
+    phone = db.Column(db.String(200),nullable=False)
 
     username = db.Column(db.String(256))
 
-    full_name =  db.Column(db.String(256))
+    full_name =  db.Column(db.String(256),nullable=False)
     
     balance = db.Column(db.Float(precision=2),nullable=False,default=0)
 
@@ -26,11 +26,11 @@ class User(db.Model):
         "Recharge", back_populates="user_ship",
         cascade="all, delete",passive_deletes=True)
     
-    def __init__(self,chat_id,device,username,full_name,active=True,full_profile=False,
+    def __init__(self,chat_id,phone,username,full_name=None,active=False,full_profile=False,
                             banned=False,balance=0,cpf=None,created_at=datetime.now):
         
         self.chat_id = chat_id
-        self.device = device
+        self.phone = phone
         self.username = username
         self.full_name = full_name
         self.balance = balance

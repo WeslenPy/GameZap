@@ -1,6 +1,6 @@
 import requests
 from os import environ
-
+import sys
 class Wzap:
     def __init__(self) -> None:
         self.token = environ.get('TOKEN')
@@ -12,10 +12,10 @@ class Wzap:
         }
 
 
-    def send_message(self,phone,message):
+    def send_message(self,phone:str,message:str):
         try:
 
-            data = {"phone":phone,'message':message}
+            data = {"phone":phone, "enqueue": "never",'message':message}
             response = requests.post(self.base_url.format(endpoint='messages'),headers=self.headers,json=data)
 
             if response.status_code == 201:
@@ -27,12 +27,14 @@ class Wzap:
             return False
 
 
-    def send_list(self,phone,title,list):
+    def send_list(self,phone,list_menu):
         try:
 
-            # data = {"phone":phone,'message':message}
+            data = {"phone":phone,"list":list_menu}
             response = requests.post(self.base_url.format(endpoint='messages'),headers=self.headers,json=data)
 
+
+            print(response.json(),file=sys.stderr)
             if response.status_code == 201:
                 return response.json()
 
@@ -41,7 +43,3 @@ class Wzap:
         except Exception as erro:
             return False
 
-api = Wzap()
-
-ls = api.send_message('+559885653456','Olá')
-print(ls)
