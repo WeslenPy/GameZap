@@ -43,3 +43,19 @@ class Wzap:
         except Exception as erro:
             return False
 
+    def send_button(self,phone,button):
+        try:
+
+            data = {"phone":phone}
+            data.update(button)
+
+            response = requests.post(self.base_url.format(endpoint='messages'),headers=self.headers,json=data)
+
+            if response.status_code == 201:
+                return response.json()
+
+            return False
+
+        except Exception as erro:
+            return False
+

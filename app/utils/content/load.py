@@ -8,3 +8,14 @@ def load_menu(name:str)->dict:
     new['title'] = title
 
     return new  
+
+
+def load_button(key:str,button:dict,**kwargs)->dict:
+
+    new:dict = button.copy()
+
+    mod:str= new[key].format(**kwargs)
+    new[key] = mod
+
+    return new  
+

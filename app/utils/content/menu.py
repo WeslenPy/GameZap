@@ -8,7 +8,7 @@ menu =  {
                 "rows": [
                     {
                         "id": "info",
-                        "title": "Como funciona",
+                        "title": "Como funciona?",
                         "description": "Aqui eu te explico tudo sobre o jogo"
                     },
                     {
@@ -35,3 +35,5 @@ menu =  {
             }
         ]
 }
+
+
